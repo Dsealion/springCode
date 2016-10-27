@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!--在这个配置文件中spring要用默认的构造函数为HelloWorld创建对象  -->
+
+   <bean id="helloWorld" class="cn.spring1027.createobject.HelloWorld"></bean>
+   
+   <!-- 
+   
+   	采用静态工厂方法创建对象 
+   			factory-method 工厂方法
+   
+   -->
+   <bean id="helloWorld2" class="cn.spring1027.createobject.HelloWorldFactory" factory-method="getInstance"></bean>
+</beans>

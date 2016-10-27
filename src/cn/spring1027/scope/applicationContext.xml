@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+     
+     <!-- 
+     	在默认情况下，spring创建bean是单例模式
+     	
+     	scope
+     		singleton 默认
+     			单例  属性是共享的
+     			一般情况下把数据放在方法里
+     		prototype
+     			多例
+      -->
+   <bean id="helloWorld" class="cn.spring1027.scope.HelloWorld" scope="prototype"></bean>
+</beans>
