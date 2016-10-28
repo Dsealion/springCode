@@ -1,9 +1,80 @@
 #Spring框架学习
 记录学习代码
 
-##1.Spring基本功能详解
+##1.Spring的一个例子
 
- **SpringIOC**：Spring的控制反转：把对象的创建、初始化、销毁等工作交给spring容器来做。由spring容器控制对象的生命周期。多例模式下不负责销毁
+* 基本jar包
+
+		在解压目录中找到下面jar文件，拷贝到类路径下 
+		--spring的核心类库 在spring文档的dist下 
+		dist\spring.jar
+		--引入的第三方类库 都spring文档的lib下
+		lib\jakarta-commons\commons-logging.jar
+
+* 步骤
+
+		spring容器
+		1、写一个java类
+		      HelloWorld
+		2、写一个spring的配置文件
+		     把HelloWorld这个类放入到spring容器中
+		3、启动spring容器
+		4、从spring容器中把helloWorld取出来
+		5、对象.方法
+		说明：spring容器负责创建对象，程序员不用创建对象
+
+	* 创建一个类
+
+			public class HelloWorld {
+				public void hello(){
+					System.out.println("hello world");
+				}
+			}
+
+	* 配置文件，一般在当前包下applicationContext.xml
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<beans xmlns="http://www.springframework.org/schema/beans"
+			       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+			   <!-- 
+			   		beans
+			   		   把一个类放入到spring容器中，该类就称为bean
+			    -->
+			    <!-- 
+			    	一个bean就代表一个类
+			    	  id就是唯一标识符
+			     -->
+			   <bean id="helloWorld" class="cn.spring1027.helloworld.HelloWorld"></bean>
+			</beans>
+
+	* 客户端
+
+			public class HelloWorldTest {
+				@Test
+				public void test(){
+					/**
+					 *  1.启动spring容器
+					 *  2.从spring容器中把helloworld拿出来
+					 *  3.对象.方法
+					 */
+					
+					//启动spring容器
+					ApplicationContext context=new ClassPathXmlApplicationContext("cn/spring1027/helloworld/applicationContext.xml");
+					
+					HelloWorld helloWorld=(HelloWorld)context.getBean("helloWorld");//spring容器中bean对应的id
+					helloWorld.hello();
+				}
+			}
+
+##2.Spring基本功能详解
+
+ > **SpringIOC**：
+
+Spring的控制反转：把对象的创建、初始化、销毁等工作交给spring容器来做。由spring容器控制对象的生命周期。多例模式下不负责销毁
+
+> **别名**:
 
 
 
