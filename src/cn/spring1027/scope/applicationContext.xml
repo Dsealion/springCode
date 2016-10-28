@@ -12,7 +12,7 @@
      			单例  属性是共享的
      			一般情况下把数据放在方法里
      		prototype
-     			多例
+     			多例   当一个bean是多例模式的情况下，lazy-init为false或者default无效，有true的效果
       -->
    <bean id="helloWorld" class="cn.spring1027.scope.HelloWorld" scope="prototype"></bean>
 </beans>

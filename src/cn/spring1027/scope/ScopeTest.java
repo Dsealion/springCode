@@ -20,7 +20,7 @@ public class ScopeTest extends SpringHelper{
 		
 		HelloWorld helloWorld2=(HelloWorld)context.getBean("helloWorld");
 		helloWorld2.getLists().add("2424jfgj");
-		System.out.println(helloWorld.getLists().size());
+		System.out.println(helloWorld.getLists().size());	//单例是2
 		System.out.println(helloWorld2.getLists().size());    //单例是2
 	}
 }
