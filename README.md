@@ -32,50 +32,50 @@
 	5、对象.方法
 	说明：spring容器负责创建对象，程序员不用创建对象
 
-* 创建一个类
+*    创建一个类
 
-		public class HelloWorld {
-			public void hello(){
-				System.out.println("hello world");
-			}
-		}
+     	public class HelloWorld {
+     		public void hello(){
+     			System.out.println("hello world");
+     		}
+     	}
 
-* 配置文件，一般在当前包下applicationContext.xml
+*    配置文件，一般在当前包下applicationContext.xml
 
-		<?xml version="1.0" encoding="UTF-8"?>
-		<beans xmlns="http://www.springframework.org/schema/beans"
-		       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		       xsi:schemaLocation="http://www.springframework.org/schema/beans
-		           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-		   <!-- 
-		   		beans
-		   		   把一个类放入到spring容器中，该类就称为bean
-		    -->
-		    <!-- 
-		    	一个bean就代表一个类
-		    	  id就是唯一标识符
-		     -->
-		   <bean id="helloWorld" class="cn.spring1027.helloworld.HelloWorld"></bean>
-		</beans>
+     	<?xml version="1.0" encoding="UTF-8"?>
+     	<beans xmlns="http://www.springframework.org/schema/beans"
+     	       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     	       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     	           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+     	   <!-- 
+     	   		beans
+     	   		   把一个类放入到spring容器中，该类就称为bean
+     	    -->
+     	    <!-- 
+     	    	一个bean就代表一个类
+     	    	  id就是唯一标识符
+     	     -->
+     	   <bean id="helloWorld" class="cn.spring1027.helloworld.HelloWorld"></bean>
+     	</beans>
 
-* 客户端
+*    客户端
 
-		public class HelloWorldTest {
-			@Test
-			public void test(){
-				/**
-				 *  1.启动spring容器
-				 *  2.从spring容器中把helloworld拿出来
-				 *  3.对象.方法
-				 */
-				
-				//启动spring容器
-				ApplicationContext context=new ClassPathXmlApplicationContext("cn/spring1027/helloworld/applicationContext.xml");
-				
-				HelloWorld helloWorld=(HelloWorld)context.getBean("helloWorld");//spring容器中bean对应的id
-				helloWorld.hello();
-			}
-		}
+     	public class HelloWorldTest {
+     		@Test
+     		public void test(){
+     			/**
+     *    1.启动spring容器
+          *    2.从spring容器中把helloworld拿出来
+               *  3.对象.方法
+                   */
+
+                  //启动spring容器
+                  ApplicationContext context=new ClassPathXmlApplicationContext("cn/spring1027/helloworld/applicationContext.xml");
+
+                  HelloWorld helloWorld=(HelloWorld)context.getBean("helloWorld");//spring容器中bean对应的id
+                  helloWorld.hello();
+                  }
+                  }
 
 ##2.Spring基本功能详解
 
@@ -84,6 +84,7 @@ Spring的控制反转：把对象的创建、初始化、销毁等工作交给sp
 
 ###别名 	[code][1]
 通过这样的配置，可以达到在一个地方命名，在多个地方使用不同的名字的效果。
+
 	<bean id="helloWorld" class="cn.spring1027.alias.HelloWorld"></bean>
 	<alias name="helloWorld" alias="wangermazi"/>
 	<alias name="helloWorld" alias="liulaosan"/>
@@ -96,18 +97,18 @@ Spring的控制反转：把对象的创建、初始化、销毁等工作交给sp
 配置文件
 
 	<!-- 
-	   
+
 	   	采用静态工厂方法创建对象 
 	   			factory-method 工厂方法
 	   
 	   -->
 	   <bean id="helloWorld2" class="cn.spring1027.createobject.HelloWorldFactory" factory-method="getInstance"></bean>
-	
-	
+
+
 工厂类
 
 	public class HelloWorldFactory {
-			
+
 			public static HelloWorld getInstance(){
 				return new HelloWorld();
 			}
@@ -182,42 +183,43 @@ Spring默认在启动时将所有singleton bean提前进行实例化。提前实
 	 			如果该bean是多例，该bean中含有资源，关闭资源的操作由程序员完成
 	 	 -->
 	   <bean id="helloWorld" class="cn.spring1027.initdestory.HelloWorld" init-method="init" destroy-method="destory"></bean>
-   
+
 ###总结 spring的IOC
 
   IOC:spring容器控制对象的生命周期：前提条件：在spring容器中的bean必须是单例的
 
 *  创建
 
-	* 方式
+   *  方式
 
-			利用默认的构造函数，如果没有默认的构造函数，会报错
-			利用静态工厂方法
-			利用实例工厂方法
+      	利用默认的构造函数，如果没有默认的构造函数，会报错
+      	利用静态工厂方法
+      	利用实例工厂方法
 
-	* 时机
+   *  时机
 
-			* lazy-init为“default/false”当启动spring容器的时候创建bean
-				但是如果该bean是prototype时，特殊。这种情况无效
-				优点：在spring容器启动的时候，就会发现错误
-				缺点：有可能会造成一些数据长时间驻留在内存中
+      * lazy-init为“default/false”当启动spring容器的时候创建bean
+        	但是如果该bean是prototype时，特殊。这种情况无效
+        	优点：在spring容器启动的时候，就会发现错误
+        	缺点：有可能会造成一些数据长时间驻留在内存中
 
-			* lazy-init为"true"当context.getBean时创建
-				bean为多例时，必须用这种方案创建对象
-				缺点：不能及时发现错误
-				优点：数据会在需要的时候加载
-	* 初始化
+        * lazy-init为"true"当context.getBean时创建
+          bean为多例时，必须用这种方案创建对象
+          缺点：不能及时发现错误
+          优点：数据会在需要的时候加载
+   *  初始化
 
 
 			由spring容器调用init方法
 			在构造函数之后执行
-
+	
 	* 销毁
-
+	
 			如果是单例，则必须返回ClassPathXmlApplicationContext该容器，才能执行销毁工作
 			如果是多例，容器不负责销毁
-		
+
+​		
 
 
 
-	
+​	
